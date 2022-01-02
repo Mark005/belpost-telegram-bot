@@ -1,0 +1,8 @@
+
+client:
+  belpost:
+    base-url: ${BELPOST_API_URL:http://localhost:52200}
+
+telegram:
+  belpost-bot:
+    token: ${BOT_TOKEN:}

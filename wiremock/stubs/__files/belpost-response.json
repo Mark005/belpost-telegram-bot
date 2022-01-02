@@ -1,0 +1,50 @@
+{
+  "data": [
+    {
+      "number": "LA144130537CN",
+      "steps": [
+        {
+          "system": "external",
+          "timestamp": 1639910160,
+          "created_at": "2021-12-19 13:36:00",
+          "place": "BEIJING",
+          "event": "\u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u043e \u0438\u0437 \u0441\u0442\u0440\u0430\u043d\u044b \u043f\u043e \u043d\u0430\u0437\u043d\u0430\u0447\u0435\u043d\u0438\u044e",
+          "is_border": false,
+          "border_link": null,
+          "place_index": null
+        },
+        {
+          "system": "external",
+          "timestamp": 1637157660,
+          "created_at": "2021-11-17 17:01:00",
+          "place": "BEIJING",
+          "event": "\u041d\u0430\u043f\u0440\u0430\u0432\u043b\u0435\u043d\u043e \u0438\u0437 \u0441\u0442\u0440\u0430\u043d\u044b \u043f\u043e \u043d\u0430\u0437\u043d\u0430\u0447\u0435\u043d\u0438\u044e",
+          "is_border": false,
+          "border_link": null,
+          "place_index": null
+        },
+        {
+          "system": "external",
+          "timestamp": 1637128620,
+          "created_at": "2021-11-17 08:57:00",
+          "place": "BEIJING",
+          "event": "\u041f\u0440\u0438\u043d\u044f\u0442\u043e \u0432 \u043e\u0431\u0440\u0430\u0431\u043e\u0442\u043a\u0443 \u0432 \u0443\u0447\u0440\u0435\u0436\u0434\u0435\u043d\u0438\u0438 \u043c\u0435\u0436\u0434\u0443\u043d\u0430\u0440\u043e\u0434\u043d\u043e\u0433\u043e \u043f\u043e\u0447\u0442\u043e\u0432\u043e\u0433\u043e \u043e\u0431\u043c\u0435\u043d\u0430",
+          "is_border": false,
+          "border_link": null,
+          "place_index": null
+        },
+        {
+          "system": "external",
+          "timestamp": 1636810380,
+          "created_at": "2021-11-13 16:33:00",
+          "place": " *",
+          "event": "\u041f\u0440\u0438\u043d\u044f\u0442\u043e \u043e\u0442 \u043e\u0442\u043f\u0440\u0430\u0432\u0438\u0442\u0435\u043b\u044f",
+          "is_border": false,
+          "border_link": null,
+          "place_index": null
+        }
+      ]
+    }
+  ],
+  "uuid": "a82c1716-8e8b-4ba0-846a-a8a2af4f510f"
+}

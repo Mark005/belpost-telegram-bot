@@ -1,0 +1,12 @@
+version: '3.7'
+
+services:
+
+  wiremock:
+    container_name: test_wiremock
+    image: wiremock/wiremock
+    ports:
+      - "52200:8080"
+    volumes:
+      - ./wiremock/stubs:/home/wiremock
+    restart: unless-stopped
