@@ -20,7 +20,7 @@ import java.util.stream.Collectors;
 @RequiredArgsConstructor
 public class TestClass {
 
-    private final TelegramBot bot;
+    //private final TelegramBot bot;
     private final TrackingService trackingService;
     private final FeignTrackingService feignTrackingService;
 
@@ -35,8 +35,8 @@ public class TestClass {
         //var response2 = trackingService.getTrackInfo(request);
 
         GetUpdates getUpdates = new GetUpdates().limit(100).offset(0).timeout(0);
-        GetUpdatesResponse updatesResponse = bot.execute(getUpdates);
-        List<Update> updates = updatesResponse.updates();
+       // GetUpdatesResponse updatesResponse = bot.execute(getUpdates);
+        //List<Update> updates = updatesResponse.updates();
 
 //        var list = bot.execute(getUpdates)
 //                .updates()
