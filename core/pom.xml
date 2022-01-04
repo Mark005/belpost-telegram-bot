@@ -21,12 +21,6 @@
     <dependencies>
 
         <dependency>
-            <groupId>com.github.pengrad</groupId>
-            <artifactId>java-telegram-bot-api</artifactId>
-            <version>5.5.0</version>
-        </dependency>
-
-        <dependency>
             <groupId>org.telegram</groupId>
             <artifactId>telegrambots</artifactId>
             <version>5.6.0</version>

@@ -1,4 +1,4 @@
-package com.belpost.telegram.bot.listener;
+package com.belpost.telegram.bot.handler.listener;
 
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
