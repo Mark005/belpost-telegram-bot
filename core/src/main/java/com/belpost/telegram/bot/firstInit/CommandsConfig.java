@@ -1,5 +1,6 @@
 package com.belpost.telegram.bot.firstInit;
 
+import com.belpost.telegram.bot.common.CommandEnum;
 import com.belpost.telegram.bot.common.LanguageEnum;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -23,8 +24,12 @@ public class CommandsConfig implements OnRegisterConfigs {
         return SetMyCommands.builder()
                 .commands(List.of(
                         BotCommand.builder()
-                                .command("/track_order")
+                                .command(CommandEnum.TRACK_ORDER.getCommand())
                                 .description("Отследить отправление")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.HELP.getCommand())
+                                .description("Дополнительная информация")
                                 .build()))
                 .languageCode(LanguageEnum.RUSSIAN.getCode())
                 .build();
@@ -34,8 +39,12 @@ public class CommandsConfig implements OnRegisterConfigs {
         return SetMyCommands.builder()
                 .commands(List.of(
                         BotCommand.builder()
-                                .command("/track_order")
+                                .command(CommandEnum.TRACK_ORDER.getCommand())
                                 .description("Track order by post number")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.HELP.getCommand())
+                                .description("Additional info")
                                 .build()))
                 .languageCode(LanguageEnum.ENGLISH.getCode())
                 .build();

@@ -1,8 +1,8 @@
 package com.belpost.telegram.bot.handler;
 
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
+import com.belpost.telegram.bot.BelpostBot;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 public interface UpdateHandler {
-    void handle(TelegramLongPollingBot bot, Update update);
+    void handle(BelpostBot bot, Update update);
 }

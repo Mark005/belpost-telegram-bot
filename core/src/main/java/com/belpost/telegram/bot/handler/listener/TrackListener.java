@@ -1,16 +1,17 @@
 package com.belpost.telegram.bot.handler.listener;
 
+import com.belpost.telegram.bot.BelpostBot;
 import com.belpost.telegram.bot.common.CommandEnum;
 import com.belpost.telegram.bot.model.belpost.PostTrackingRequest;
 import com.belpost.telegram.bot.service.TrackingService;
 import com.belpost.telegram.bot.service.UpdateRecorder;
+import com.belpost.telegram.bot.utils.PrettyPrinter;
 import com.belpost.telegram.bot.utils.UpdateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
 import org.springframework.util.StringUtils;
-import org.telegram.telegrambots.bots.TelegramLongPollingBot;
-import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.springframework.web.reactive.function.client.WebClientResponseException;
 import org.telegram.telegrambots.meta.api.objects.Update;
 
 import java.util.Optional;
@@ -23,7 +24,7 @@ public class TrackListener implements UpdateListener {
 
     @SneakyThrows
     @Override
-    public void onUpdate(TelegramLongPollingBot bot, Update update) {
+    public void onUpdate(BelpostBot bot, Update update) {
         Optional<Update> previousUpdate = updateRecorder.getPreviousUpdateFromChatByChatId(
                 UpdateUtils.extractChatId(update));
 
@@ -31,37 +32,32 @@ public class TrackListener implements UpdateListener {
             return;
         }
 
-        if (UpdateUtils.extractCommand(update) == null &&
-                CommandEnum.TRACK_ORDER == UpdateUtils.extractCommand(previousUpdate)) {
-            var trackNumber = UpdateUtils.extractMessageText(update);
-            if (isValid(trackNumber)) {
-                var request =
-                        PostTrackingRequest.builder()
-                                .number(trackNumber)
-                                .build();
-                try {
-                    var response = trackingService.getTrackInfo(request).toString();
-
-                    bot.execute(
-                            SendMessage.builder()
-                                    .text(response)
-                                    .chatId(String.valueOf(UpdateUtils.extractChatId(update)))
-                                    .build());
-                } catch (Exception e) {
-                    bot.execute(
-                            SendMessage.builder()
-                                    .text("An exception occurred during the request")
-                                    .chatId(String.valueOf(UpdateUtils.extractChatId(update)))
-                                    .build());
-                }
-            } else {
-                bot.execute(
-                        SendMessage.builder()
-                                .text("Track number isn't valid")
-                                .chatId(String.valueOf(UpdateUtils.extractChatId(update)))
-                                .build());
-            }
+        if (UpdateUtils.extractCommand(update) != null ||
+                CommandEnum.TRACK_ORDER != UpdateUtils.extractCommand(previousUpdate)) {
+            return;
         }
+
+        var trackNumber = UpdateUtils.extractMessageText(update);
+
+        if (!isValid(trackNumber)) {
+            bot.sendUpdateResponseMessage("Track number isn't valid", update);
+            return;
+        }
+
+        var request =
+                PostTrackingRequest.builder()
+                        .number(trackNumber)
+                        .build();
+
+        trackingService.getTrackInfo(request)
+                .doOnSuccess(postTrackingResponse ->
+                        bot.sendUpdateResponseMessage(PrettyPrinter.getPretty(postTrackingResponse), update))
+                .doOnError(WebClientResponseException.NotFound.class, notFound ->
+                        bot.sendUpdateResponseMessage("Order not found", update))
+                .doOnError(throwable ->
+                        bot.sendUpdateResponseMessage(
+                                "An exception occurred during the request, please try later", update))
+                .subscribe();
     }
 
     private boolean isValid(String trackNumber) {

@@ -1,7 +1,7 @@
 package com.belpost.telegram.bot.service;
 
-import com.belpost.telegram.bot.model.belpost.PostTrackingResponse;
 import com.belpost.telegram.bot.model.belpost.PostTrackingRequest;
+import com.belpost.telegram.bot.model.belpost.PostTrackingResponse;
 import org.springframework.cloud.openfeign.FeignClient;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
