@@ -1,24 +1,22 @@
 package com.belpost.telegram.bot.config;
 
-import com.pengrad.telegrambot.TelegramBot;
-import com.pengrad.telegrambot.UpdatesListener;
-import org.springframework.beans.factory.annotation.Value;
+import com.belpost.telegram.bot.BelpostBot;
+import lombok.SneakyThrows;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.util.Assert;
-import org.springframework.util.StringUtils;
-
-import java.util.List;
+import org.springframework.scheduling.annotation.EnableScheduling;
+import org.telegram.telegrambots.meta.TelegramBotsApi;
+import org.telegram.telegrambots.updatesreceivers.DefaultBotSession;
 
 @Configuration
+@EnableScheduling
 public class BotConfig {
 
     @Bean
-    TelegramBot telegramBot(@Value("${telegram.belpost-bot.token}") String token,
-                            List<UpdatesListener> listeners) {
-        TelegramBot bot = new TelegramBot(token);
-
-        listeners.forEach(bot::setUpdatesListener);
-        return bot;
+    @SneakyThrows
+    TelegramBotsApi telegramBotApi(BelpostBot bot) {
+        TelegramBotsApi telegramBotsApi = new TelegramBotsApi(DefaultBotSession.class);
+        telegramBotsApi.registerBot(bot);
+        return telegramBotsApi;
     }
 }
