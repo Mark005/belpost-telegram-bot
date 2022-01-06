@@ -13,6 +13,7 @@ import java.util.stream.Stream;
 public enum CommandEnum {
 
     UNKNOWN(""),
+    STATUS("/status"),
     HELP("/help"),
     TRACK_ORDER("/track_order");
 

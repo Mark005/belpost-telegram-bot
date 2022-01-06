@@ -1,13 +1,17 @@
 package com.belpost.telegram.bot.utils;
 
 import com.belpost.telegram.bot.common.CommandEnum;
+import com.belpost.telegram.bot.common.LanguageEnum;
+import lombok.experimental.UtilityClass;
 import org.telegram.telegrambots.meta.api.objects.Message;
 import org.telegram.telegrambots.meta.api.objects.MessageEntity;
 import org.telegram.telegrambots.meta.api.objects.Update;
+import org.telegram.telegrambots.meta.api.objects.User;
 
 import java.util.Collections;
 import java.util.Optional;
 
+@UtilityClass
 public class UpdateUtils {
 
     public static Long extractChatId(Update update) {
@@ -42,4 +46,12 @@ public class UpdateUtils {
         return extractCommand(Optional.of(update));
     }
 
+    public static LanguageEnum extractLanguage(Update update) {
+        return Optional.of(update)
+                .map(Update::getMessage)
+                .map(Message::getFrom)
+                .map(User::getLanguageCode)
+                .map(LanguageEnum::getEnumByCode)
+                .orElse(LanguageEnum.ENGLISH);
+    }
 }

@@ -5,7 +5,7 @@ import com.belpost.telegram.bot.common.CommandEnum;
 import com.belpost.telegram.bot.model.belpost.PostTrackingRequest;
 import com.belpost.telegram.bot.service.TrackingService;
 import com.belpost.telegram.bot.service.UpdateRecorder;
-import com.belpost.telegram.bot.utils.PrettyPrinter;
+import com.belpost.telegram.bot.utils.TemplateBuilder;
 import com.belpost.telegram.bot.utils.UpdateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -51,7 +51,10 @@ public class TrackListener implements UpdateListener {
 
         trackingService.getTrackInfo(request)
                 .doOnSuccess(postTrackingResponse ->
-                        bot.sendUpdateResponseMessage(PrettyPrinter.getPretty(postTrackingResponse), update))
+                        bot.sendUpdateResponseMessage(
+                                TemplateBuilder.build(
+                                        postTrackingResponse,
+                                        UpdateUtils.extractLanguage(update)), update))
                 .doOnError(WebClientResponseException.NotFound.class, notFound ->
                         bot.sendUpdateResponseMessage("Order not found", update))
                 .doOnError(throwable ->
