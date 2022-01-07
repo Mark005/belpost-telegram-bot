@@ -5,4 +5,5 @@ client:
 
 telegram:
   belpost-bot:
+    username: ${BOT_USERNAME:username}
     token: ${BOT_TOKEN:}
