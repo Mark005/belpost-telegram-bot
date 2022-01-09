@@ -1,0 +1,80 @@
+<?xml version="1.1" encoding="UTF-8" standalone="no"?>
+<databaseChangeLog xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+                   xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+                   xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                   http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.5.xsd">
+
+    <changeSet id="1641749592011-1"
+               author="mark005">
+        <createTable tableName="chat_track_request">
+            <column name="id"
+                    type="UUID">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_chat_track_request"/>
+            </column>
+            <column name="chat_id"
+                    type="BIGINT"/>
+            <column name="tracking_info_id"
+                    type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1641749592011-2"
+               author="mark005">
+        <createTable tableName="track_update">
+            <column name="id"
+                    type="UUID">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_track_update"/>
+            </column>
+            <column name="system"
+                    type="VARCHAR(255)"/>
+            <column name="timestamp"
+                    type="DATETIME"/>
+            <column name="created_at"
+                    type="DATETIME"/>
+            <column name="place"
+                    type="VARCHAR(255)"/>
+            <column name="event"
+                    type="VARCHAR(255)"/>
+            <column name="is_border"
+                    type="BOOLEAN"/>
+            <column name="border_link"
+                    type="VARCHAR(255)"/>
+            <column name="place_index"
+                    type="VARCHAR(255)"/>
+            <column name="tracking_info_id"
+                    type="UUID"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1641749592011-3"
+               author="mark005">
+        <createTable tableName="tracking_info">
+            <column name="id"
+                    type="UUID">
+                <constraints nullable="false"
+                             primaryKey="true"
+                             primaryKeyName="pk_tracking_info"/>
+            </column>
+            <column name="track_number"
+                    type="VARCHAR(255)"/>
+        </createTable>
+    </changeSet>
+    <changeSet id="1641749592011-4"
+               author="mark005">
+        <addForeignKeyConstraint baseColumnNames="tracking_info_id"
+                                 baseTableName="chat_track_request"
+                                 constraintName="FK_CHAT_TRACK_REQUEST_ON_TRACKING_INFO"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tracking_info"/>
+    </changeSet>
+    <changeSet id="1641749592011-5"
+               author="mark005">
+        <addForeignKeyConstraint baseColumnNames="tracking_info_id"
+                                 baseTableName="track_update"
+                                 constraintName="FK_TRACK_UPDATE_ON_TRACKING_INFO"
+                                 referencedColumnNames="id"
+                                 referencedTableName="tracking_info"/>
+    </changeSet>
+</databaseChangeLog>

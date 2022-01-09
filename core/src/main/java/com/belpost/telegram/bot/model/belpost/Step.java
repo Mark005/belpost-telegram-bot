@@ -9,8 +9,8 @@ import java.time.LocalDateTime;
 
 @Data
 public class Step {
-    private String system;
 
+    private String system;
     @JsonDeserialize(using = LocalDateTimeFromTimestampDeserializer.class)
     private LocalDateTime timestamp;
     private String created_at;

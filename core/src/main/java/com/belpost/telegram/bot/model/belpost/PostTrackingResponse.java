@@ -6,6 +6,6 @@ import java.util.List;
 
 @Data
 public class PostTrackingResponse {
-    private List<TrackingInfo> data;
+    private List<TrackingInfoDto> data;
     private String uuid;
 }

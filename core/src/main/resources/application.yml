@@ -1,4 +1,26 @@
 
+spring:
+  application:
+    name: belpost-bot-app
+  datasource:
+    driver-class-name: org.postgresql.Driver
+    url: ${DATASOURCE_URL:jdbc:postgresql://localhost:5444/postgres}
+    username: ${DATASOUCE_USERNAME:postgres}
+    password: ${DATASOURCE_PASSWORD:postgres}
+  jpa:
+    hibernate:
+      ddl-auto: validate
+    database: postgresql
+    database-platform: org.hibernate.dialect.PostgreSQLDialect
+    show-sql: true
+    properties:
+      hibernate:
+        format_sql: true
+  liquibase:
+    enabled: true
+    change-log: classpath:db/changelog/db.changelog-master.xml
+    default-schema: ${DEFAULT_SCHEMA:public}
+
 client:
   belpost:
     base-url: ${BELPOST_API_URL:http://localhost:52200}

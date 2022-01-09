@@ -5,7 +5,7 @@ import lombok.Data;
 import java.util.List;
 
 @Data
-public class TrackingInfo {
+public class TrackingInfoDto {
     private String number;
     private List<Step> steps;
 }

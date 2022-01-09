@@ -2,7 +2,7 @@ package com.belpost.telegram.bot.utils;
 
 import com.belpost.telegram.bot.common.LanguageEnum;
 import com.belpost.telegram.bot.model.belpost.PostTrackingResponse;
-import com.belpost.telegram.bot.model.belpost.TrackingInfo;
+import com.belpost.telegram.bot.model.belpost.TrackingInfoDto;
 import lombok.SneakyThrows;
 import lombok.experimental.UtilityClass;
 import org.springframework.util.CollectionUtils;
@@ -21,13 +21,13 @@ public class TemplateBuilder {
             return getTemplate("post/order-notfound-response.tmp", language);
         }
 
-        TrackingInfo trackingInfo = postTrackingResponse.getData().get(0);
+        TrackingInfoDto trackingInfoDto = postTrackingResponse.getData().get(0);
 
         var template = getTemplate("post/track-response.tmp", language);
 
         ST st = new ST(template);
-        st.add("number", trackingInfo.getNumber());
-        st.add("steps", trackingInfo.getSteps());
+        st.add("number", trackingInfoDto.getNumber());
+        st.add("steps", trackingInfoDto.getSteps());
         return st.render();
     }
 

@@ -2,6 +2,26 @@ version: '3.7'
 
 services:
 
+  postgres_db:
+    container_name: test_postgres_db
+    image: postgres:12-alpine
+    ports:
+      - "5444:5333"
+    healthcheck:
+      test: "pg_isready"
+      interval: 5s
+      timeout: 10s
+      retries: 50
+      start_period: 10s
+#    volumes:
+#      - ./database/postgres-volume:/var/lib/postgresql/data/
+    environment:
+      PGPORT: 5333
+      POSTGRES_USER: postgres
+      POSTGRES_PASSWORD: postgres
+      POSTGRES_DB: postgres
+    restart: unless-stopped
+
   wiremock:
     container_name: test_wiremock
     image: wiremock/wiremock
