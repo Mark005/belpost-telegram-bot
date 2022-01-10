@@ -1,0 +1,6 @@
+Отслеживаемые номера
+<requests:{ request |
+------------------------------------
+Название: <request.name>
+Номер: <request.trackingInfo.trackNumber>
+}>

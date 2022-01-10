@@ -42,7 +42,7 @@ public class GetTrackInfoCommandHandler implements CommandHandler {
                                         UpdateUtils.extractLanguage(update)), update))
                 .doOnError(WebClientResponseException.NotFound.class, notFound ->
                         bot.sendUpdateResponseMessage("Order not found", update))
-                .doOnError(throwable ->
+                .doOnError(WebClientResponseException.class, e ->
                         bot.sendUpdateResponseMessage(
                                 "An exception occurred during the request, please try later", update))
                 .subscribe();

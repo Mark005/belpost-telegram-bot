@@ -57,4 +57,12 @@ public class BelpostBot extends TelegramLongPollingBot {
                         .build());
     }
 
+    @SneakyThrows
+    public Message sendUpdateResponseMessage(String text, Long chatId) {
+        return execute(
+                SendMessage.builder()
+                        .text(text)
+                        .chatId(String.valueOf(chatId))
+                        .build());
+    }
 }

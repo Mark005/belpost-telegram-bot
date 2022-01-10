@@ -1,6 +1,7 @@
 package com.belpost.telegram.bot.utils;
 
 import com.belpost.telegram.bot.common.LanguageEnum;
+import com.belpost.telegram.bot.model.ChatTrackRequest;
 import com.belpost.telegram.bot.model.belpost.PostTrackingResponse;
 import com.belpost.telegram.bot.model.belpost.TrackingInfoDto;
 import lombok.SneakyThrows;
@@ -11,6 +12,7 @@ import org.stringtemplate.v4.ST;
 
 import java.nio.file.Files;
 import java.nio.file.Paths;
+import java.util.List;
 
 @UtilityClass
 public class TemplateBuilder {
@@ -28,6 +30,14 @@ public class TemplateBuilder {
         ST st = new ST(template);
         st.add("number", trackingInfoDto.getNumber());
         st.add("steps", trackingInfoDto.getSteps());
+        return st.render();
+    }
+
+    public static String build(List<ChatTrackRequest> trackRequests, LanguageEnum language) {
+        var template = getTemplate("entity/chat-tracking-request.tmp", language);
+
+        ST st = new ST(template);
+        st.add("requests", trackRequests);
         return st.render();
     }
 

@@ -5,7 +5,8 @@ import com.belpost.telegram.bot.common.CommandEnum;
 import com.belpost.telegram.bot.common.validator.TrackNumberValidator;
 import com.belpost.telegram.bot.mapper.TrackingInfoMapper;
 import com.belpost.telegram.bot.model.ChatTrackRequest;
-import com.belpost.telegram.bot.repository.ChatTrackRequestRepository;
+import com.belpost.telegram.bot.service.TrackRequestCreationException;
+import com.belpost.telegram.bot.service.TrackRequestService;
 import com.belpost.telegram.bot.service.TrackingService;
 import com.belpost.telegram.bot.utils.UpdateUtils;
 import lombok.RequiredArgsConstructor;
@@ -19,7 +20,7 @@ public class AddTrackingOrderCommandHandler implements CommandHandler {
     private final TrackNumberValidator validator;
     private final TrackingInfoMapper trackingInfoMapper;
     private final TrackingService trackingService;
-    private final ChatTrackRequestRepository chatTrackRequestRepository;
+    private final TrackRequestService trackRequestService;
 
     @Override
     public CommandEnum getHandlingCommand() {
@@ -46,12 +47,13 @@ public class AddTrackingOrderCommandHandler implements CommandHandler {
                             .name(name)
                             .trackingInfo(trackingInfoMapper.convert(postTrackingResponse.getData().get(0)))
                             .build();
-
-                    chatTrackRequestRepository.save(request);
+                    trackRequestService.addNewTrackingNumber(request);
                 })
                 .doOnError(WebClientResponseException.NotFound.class, notFound ->
                         bot.sendUpdateResponseMessage("Order not found", update))
-                .doOnError(throwable ->
+                .doOnError(TrackRequestCreationException.class, e ->
+                        bot.sendUpdateResponseMessage(e.getDuplicates().toString(), update))
+                .doOnError(WebClientResponseException.class, e ->
                         bot.sendUpdateResponseMessage(
                                 "An exception occurred during the request, please try later", update))
                 .subscribe();
