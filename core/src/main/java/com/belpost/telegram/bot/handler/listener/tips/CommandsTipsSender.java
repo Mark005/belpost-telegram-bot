@@ -1,7 +1,8 @@
-package com.belpost.telegram.bot.handler.listener;
+package com.belpost.telegram.bot.handler.listener.tips;
 
 import com.belpost.telegram.bot.BelpostBot;
 import com.belpost.telegram.bot.common.CommandEnum;
+import com.belpost.telegram.bot.handler.listener.UpdateListener;
 import com.belpost.telegram.bot.utils.UpdateUtils;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
@@ -30,8 +31,10 @@ public class CommandsTipsSender implements UpdateListener {
             bot.sendUpdateResponseMessage("Only god can help you", update);
         }
 
-        if (command == CommandEnum.TRACK_ORDER) {
+        if (command == CommandEnum.GET_TRACK_INFO) {
             bot.sendUpdateResponseMessage("Type post number for request.\nExample: AB123456789CD", update);
         }
+
+
     }
 }

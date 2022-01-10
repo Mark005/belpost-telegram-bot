@@ -7,4 +7,6 @@ import reactor.core.publisher.Mono;
 public interface TrackingService {
 
     Mono<PostTrackingResponse> getTrackInfo(PostTrackingRequest postTrackingRequest);
+
+    Mono<PostTrackingResponse> getTrackInfo(String trackNumber);
 }

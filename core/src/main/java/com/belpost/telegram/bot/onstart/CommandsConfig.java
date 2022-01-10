@@ -36,13 +36,26 @@ public class CommandsConfig implements OnRegisterConfigs {
                                 .description("Статус бота: %s %s".formatted(status.getEmoji(), status.getText()))
                                 .build(),
                         BotCommand.builder()
-                                .command(CommandEnum.TRACK_ORDER.getCommand())
+                                .command(CommandEnum.HELP.getCommand())
+                                .description("Дополнительная информация")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.GET_TRACK_INFO.getCommand())
                                 .description("Отследить отправление")
                                 .build(),
                         BotCommand.builder()
-                                .command(CommandEnum.HELP.getCommand())
-                                .description("Дополнительная информация")
-                                .build()))
+                                .command(CommandEnum.ADD_TRACKING_ORDER.getCommand())
+                                .description("Добавить отправление для постоянного отслеживания")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.GET_TRACKING_ORDERS.getCommand())
+                                .description("Посмотреть список отслеживаемых отправлений")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.DELETE_TRACKING_ORDER.getCommand())
+                                .description("Прекратить отслеживать отправление")
+                                .build()
+                ))
                 .languageCode(LanguageEnum.RUSSIAN.getCode())
                 .build();
     }
@@ -55,13 +68,26 @@ public class CommandsConfig implements OnRegisterConfigs {
                                 .description("Bot status:  %s %s".formatted(status.getEmoji(), status.getText()))
                                 .build(),
                         BotCommand.builder()
-                                .command(CommandEnum.TRACK_ORDER.getCommand())
+                                .command(CommandEnum.HELP.getCommand())
+                                .description("Additional info")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.GET_TRACK_INFO.getCommand())
                                 .description("Track order by post number")
                                 .build(),
                         BotCommand.builder()
-                                .command(CommandEnum.HELP.getCommand())
-                                .description("Additional info")
-                                .build()))
+                                .command(CommandEnum.ADD_TRACKING_ORDER.getCommand())
+                                .description("Add new order for tracking")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.GET_TRACKING_ORDERS.getCommand())
+                                .description("Get all tracking orders")
+                                .build(),
+                        BotCommand.builder()
+                                .command(CommandEnum.DELETE_TRACKING_ORDER.getCommand())
+                                .description("Stop tracking order")
+                                .build()
+                ))
                 .languageCode(LanguageEnum.ENGLISH.getCode())
                 .build();
     }

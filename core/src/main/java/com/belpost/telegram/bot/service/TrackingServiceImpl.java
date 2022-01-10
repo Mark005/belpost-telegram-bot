@@ -17,12 +17,20 @@ public class TrackingServiceImpl implements TrackingService {
 
     @Override
     public Mono<PostTrackingResponse> getTrackInfo(PostTrackingRequest postTrackingRequest) {
-
         return postClient.post()
                 .uri("/api/v1/tracking")
                 .header(HttpHeaders.CONTENT_TYPE, MediaType.APPLICATION_JSON_VALUE)
                 .body(Mono.just(postTrackingRequest), PostTrackingRequest.class)
                 .retrieve()
                 .bodyToMono(PostTrackingResponse.class);
+    }
+
+    @Override
+    public Mono<PostTrackingResponse> getTrackInfo(String trackNumber) {
+        var request =
+                PostTrackingRequest.builder()
+                        .number(trackNumber)
+                        .build();
+        return getTrackInfo(request);
     }
 }
