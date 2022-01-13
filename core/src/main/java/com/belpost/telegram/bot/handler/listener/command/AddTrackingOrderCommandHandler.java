@@ -5,6 +5,7 @@ import com.belpost.telegram.bot.common.CommandEnum;
 import com.belpost.telegram.bot.common.validator.TrackNumberValidator;
 import com.belpost.telegram.bot.mapper.TrackingInfoMapper;
 import com.belpost.telegram.bot.model.ChatTrackRequest;
+import com.belpost.telegram.bot.model.TrackStatusEnum;
 import com.belpost.telegram.bot.service.TrackRequestCreationException;
 import com.belpost.telegram.bot.service.TrackRequestService;
 import com.belpost.telegram.bot.service.TrackingService;
@@ -42,10 +43,12 @@ public class AddTrackingOrderCommandHandler implements CommandHandler {
 
         trackingService.getTrackInfo(trackNumber)
                 .doOnSuccess(postTrackingResponse -> {
+                    var trackingInfo = trackingInfoMapper.convert(postTrackingResponse.getData().get(0));
+                    trackingInfo.setTrackStatusEnum(TrackStatusEnum.NEW);
                     var request = ChatTrackRequest.builder()
                             .chatId(UpdateUtils.extractChatId(update))
                             .name(name)
-                            .trackingInfo(trackingInfoMapper.convert(postTrackingResponse.getData().get(0)))
+                            .trackingInfo(trackingInfo)
                             .build();
                     trackRequestService.addNewTrackingNumber(request);
                 })

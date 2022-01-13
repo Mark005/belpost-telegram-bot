@@ -6,6 +6,7 @@ import lombok.RequiredArgsConstructor;
 import lombok.Setter;
 
 import javax.persistence.*;
+import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.UUID;
@@ -28,6 +29,11 @@ public class TrackingInfo {
 
     @Column(name = "track_number")
     private String trackNumber;
+
+    @NotNull
+    @Enumerated(EnumType.STRING)
+    @Column(name = "track_status_enum")
+    private TrackStatusEnum trackStatusEnum;
 
     @OneToMany(
             orphanRemoval = true,
