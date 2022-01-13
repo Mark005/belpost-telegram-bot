@@ -1,4 +1,4 @@
-package com.belpost.telegram.bot.properties;
+package com.belpost.telegram.bot.config.properties;
 
 import lombok.Getter;
 import lombok.Setter;

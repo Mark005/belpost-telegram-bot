@@ -24,7 +24,11 @@ public class TrackingInfo {
     @GeneratedValue
     private UUID id;
 
-    @OneToMany(mappedBy = "trackingInfo", orphanRemoval = true, cascade = CascadeType.PERSIST)
+    @OneToMany(
+            mappedBy = "trackingInfo",
+            orphanRemoval = true,
+            fetch = FetchType.EAGER,
+            cascade = CascadeType.PERSIST)
     private List<ChatTrackRequest> chatTrackRequest = new ArrayList<>();
 
     @Column(name = "track_number")
@@ -37,6 +41,7 @@ public class TrackingInfo {
 
     @OneToMany(
             orphanRemoval = true,
+            fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
     @JoinColumn(name = "tracking_info_id")
     private List<TrackUpdate> trackUpdates = new ArrayList<>();

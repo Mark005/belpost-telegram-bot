@@ -6,6 +6,7 @@ import lombok.Setter;
 
 import javax.persistence.*;
 import java.time.LocalDateTime;
+import java.util.Objects;
 import java.util.UUID;
 
 @Getter
@@ -48,4 +49,31 @@ public class TrackUpdate {
     @JoinColumn(name = "tracking_info_id")
     private TrackingInfo trackingInfo;
 
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+        TrackUpdate that = (TrackUpdate) o;
+        return system == that.system &&
+                timestamp.equals(that.timestamp) &&
+                createdAt.equals(that.createdAt) &&
+                Objects.equals(place, that.place) &&
+                event.equals(that.event) &&
+                Objects.equals(isBorder, that.isBorder) &&
+                Objects.equals(borderLink, that.borderLink) &&
+                Objects.equals(placeIndex, that.placeIndex);
+    }
+
+    @Override
+    public int hashCode() {
+        return Objects.hash(
+                system,
+                timestamp,
+                createdAt,
+                place,
+                event,
+                isBorder,
+                borderLink,
+                placeIndex);
+    }
 }

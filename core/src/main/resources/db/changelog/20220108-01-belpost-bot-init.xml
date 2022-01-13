@@ -59,6 +59,8 @@
                              primaryKey="true"
                              primaryKeyName="pk_tracking_info"/>
             </column>
+            <column name="track_status_enum"
+                    type="VARCHAR(255)"/>
             <column name="track_number"
                     type="VARCHAR(255)"/>
         </createTable>

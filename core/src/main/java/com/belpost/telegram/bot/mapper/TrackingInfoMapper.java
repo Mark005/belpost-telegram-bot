@@ -14,6 +14,7 @@ public interface TrackingInfoMapper {
 
     @Mapping(target = "id", ignore = true)
     @Mapping(target = "chatTrackRequest", ignore = true)
+    @Mapping(target = "trackStatusEnum", ignore = true)
     @Mapping(target = "trackNumber", source = "number")
     @Mapping(target = "trackUpdates", source = "steps")
     TrackingInfo convert(TrackingInfoDto trackingInfoDto);

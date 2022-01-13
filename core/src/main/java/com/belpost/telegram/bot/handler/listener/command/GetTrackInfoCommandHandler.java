@@ -3,9 +3,10 @@ package com.belpost.telegram.bot.handler.listener.command;
 import com.belpost.telegram.bot.BelpostBot;
 import com.belpost.telegram.bot.common.CommandEnum;
 import com.belpost.telegram.bot.common.validator.TrackNumberValidator;
+import com.belpost.telegram.bot.model.belpost.PostTrackingResponse;
 import com.belpost.telegram.bot.service.TrackingService;
-import com.belpost.telegram.bot.utils.TemplateBuilder;
 import com.belpost.telegram.bot.utils.UpdateUtils;
+import com.belpost.telegram.bot.utils.tempate.Template;
 import lombok.RequiredArgsConstructor;
 import lombok.SneakyThrows;
 import org.springframework.stereotype.Service;
@@ -17,6 +18,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 public class GetTrackInfoCommandHandler implements CommandHandler {
     private final TrackNumberValidator validator;
     private final TrackingService trackingService;
+    private final Template<PostTrackingResponse> template;
 
     @Override
     public CommandEnum getHandlingCommand() {
@@ -37,7 +39,7 @@ public class GetTrackInfoCommandHandler implements CommandHandler {
         trackingService.getTrackInfo(trackNumber)
                 .doOnSuccess(postTrackingResponse ->
                         bot.sendUpdateResponseMessage(
-                                TemplateBuilder.build(
+                                template.build(
                                         postTrackingResponse,
                                         UpdateUtils.extractLanguage(update)), update))
                 .doOnError(WebClientResponseException.NotFound.class, notFound ->

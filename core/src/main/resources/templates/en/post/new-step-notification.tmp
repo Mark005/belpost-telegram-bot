@@ -1,0 +1,9 @@
+UPDATES BY NUMBER <number>
+
+STEPS
+<steps:{ step |
+------------------------------------
+DATE: <step.created_at>
+CURRENT PLACE: <step.place>
+EVENT: <step.event>
+}>

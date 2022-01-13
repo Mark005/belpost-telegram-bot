@@ -7,5 +7,7 @@ import org.springframework.data.domain.Pageable;
 public interface TrackingInfoService {
     Page<TrackingInfo> findAll(Pageable pageable);
 
+    Page<TrackingInfo> findAllForUpdate(Pageable pageable);
+
     TrackingInfo updateByTrackingNumber(TrackingInfo newTrackingInfo);
 }

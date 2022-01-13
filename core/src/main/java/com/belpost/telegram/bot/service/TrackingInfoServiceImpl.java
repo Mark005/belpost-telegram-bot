@@ -1,5 +1,6 @@
 package com.belpost.telegram.bot.service;
 
+import com.belpost.telegram.bot.model.TrackStatusEnum;
 import com.belpost.telegram.bot.model.TrackingInfo;
 import com.belpost.telegram.bot.repository.TrackingInfoRepository;
 import lombok.RequiredArgsConstructor;
@@ -18,7 +19,14 @@ public class TrackingInfoServiceImpl implements TrackingInfoService {
     }
 
     @Override
+    public Page<TrackingInfo> findAllForUpdate(Pageable pageable) {
+        final Page<TrackingInfo> allExcludeStatus =
+                trackingInfoRepository.findAllExcludeStatus(TrackStatusEnum.FINISHED, pageable);
+        return allExcludeStatus;
+    }
+
+    @Override
     public TrackingInfo updateByTrackingNumber(TrackingInfo newTrackingInfo) {
-        return null;
+        return trackingInfoRepository.save(newTrackingInfo);
     }
 }
