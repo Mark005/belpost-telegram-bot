@@ -1,9 +1,10 @@
-ОБНОВЛЕНИЕ ПО НОМЕРУ <number>
+ОБНОВЛЕНИЕ ПО ЗАКАЗУ "<name>"
+НОМЕР <number>
 
 ОБНВЛЕНИЯ
 <steps:{ step |
 ------------------------------------
-ДАТА: <step.created_at>
+ДАТА: <step.createdAt>
 ЛОКАЦИЯ: <step.place>
 СОБЫТИЕ: <step.event>
 }>

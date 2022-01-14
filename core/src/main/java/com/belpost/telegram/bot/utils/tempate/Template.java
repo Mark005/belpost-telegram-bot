@@ -14,7 +14,7 @@ public interface Template<T> {
         return "Not Implemented";
     }
 
-    default String build(List<T> trackRequests, LanguageEnum language){
+    default String build(List<T> objects, LanguageEnum language){
         return "Not Implemented";
     }
 

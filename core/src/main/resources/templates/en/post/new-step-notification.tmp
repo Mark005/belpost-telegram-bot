@@ -1,9 +1,10 @@
-UPDATES BY NUMBER <number>
+UPDATES BY ORDER "<name>"
+NUMBER: <number>
 
 STEPS
 <steps:{ step |
 ------------------------------------
-DATE: <step.created_at>
+DATE: <step.createdAt>
 CURRENT PLACE: <step.place>
 EVENT: <step.event>
 }>

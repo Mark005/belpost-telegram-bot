@@ -1,6 +1,7 @@
 package com.belpost.telegram.bot.utils.tempate;
 
 import com.belpost.telegram.bot.common.LanguageEnum;
+import com.belpost.telegram.bot.model.ChatTrackRequest;
 import com.belpost.telegram.bot.model.TrackUpdate;
 import com.belpost.telegram.bot.model.belpost.TrackingInfoDto;
 import org.springframework.stereotype.Component;
@@ -10,19 +11,20 @@ import org.stringtemplate.v4.ST;
 import java.util.List;
 
 @Component
-public class TrackUpdateTemplate implements Template<TrackUpdate> {
+public class TrackUpdateTemplate implements Template<TrackUpdate>, UpdateNotificationTemplate {
 
     @Override
-    public String build(List<TrackUpdate> trackRequests, LanguageEnum language) {
-        if (!CollectionUtils.isEmpty(trackRequests)) {
-            return getTemplate("post/order-notfound-response.tmp", language);
+    public String build(ChatTrackRequest trackRequest, List<TrackUpdate> newSteps, LanguageEnum language) {
+        if (CollectionUtils.isEmpty(newSteps)) {
+            throw new RuntimeException("Steps list shouldn't be empty");
         }
 
         var template = getTemplate("post/new-step-notification.tmp", language);
 
         ST st = new ST(template);
-        st.add("number", trackRequests.get(0).getTrackingInfo().getTrackNumber());
-        st.add("steps", trackRequests);
+        st.add("name", trackRequest.getName());
+        st.add("number", trackRequest.getTrackingInfo().getTrackNumber());
+        st.add("steps", newSteps);
         return st.render();
     }
 }

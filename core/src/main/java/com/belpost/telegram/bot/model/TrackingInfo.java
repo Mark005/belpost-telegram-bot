@@ -4,6 +4,8 @@ import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.RequiredArgsConstructor;
 import lombok.Setter;
+import org.hibernate.annotations.Fetch;
+import org.hibernate.annotations.FetchMode;
 
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
@@ -29,6 +31,7 @@ public class TrackingInfo {
             orphanRemoval = true,
             fetch = FetchType.EAGER,
             cascade = CascadeType.PERSIST)
+    @Fetch(FetchMode.SUBSELECT)
     private List<ChatTrackRequest> chatTrackRequest = new ArrayList<>();
 
     @Column(name = "track_number")
@@ -43,6 +46,7 @@ public class TrackingInfo {
             orphanRemoval = true,
             fetch = FetchType.EAGER,
             cascade = CascadeType.ALL)
+    @Fetch(FetchMode.SUBSELECT)
     @JoinColumn(name = "tracking_info_id")
     private List<TrackUpdate> trackUpdates = new ArrayList<>();
 

@@ -5,6 +5,7 @@ import com.belpost.telegram.bot.common.LanguageEnum;
 import com.belpost.telegram.bot.mapper.TrackingInfoMapper;
 import com.belpost.telegram.bot.model.TrackUpdate;
 import com.belpost.telegram.bot.utils.tempate.Template;
+import com.belpost.telegram.bot.utils.tempate.UpdateNotificationTemplate;
 import io.netty.handler.timeout.ReadTimeoutException;
 import io.netty.handler.timeout.WriteTimeoutException;
 import lombok.RequiredArgsConstructor;
@@ -28,7 +29,7 @@ public class StatusScheduler {
     private final TrackingInfoService trackingInfoService;
     private final TrackingService trackingService;
     private final TrackingInfoMapper trackingInfoMapper;
-    private final Template<TrackUpdate> template;
+    private final UpdateNotificationTemplate template;
 
     @Scheduled(timeUnit = TimeUnit.MINUTES, fixedDelay = 1)
     public void updateStatus() {
@@ -54,7 +55,7 @@ public class StatusScheduler {
                                 trackingInfo.getChatTrackRequest()
                                         .forEach(trackRequest ->
                                                 bot.sendUpdateResponseMessage(
-                                                        template.build(newSteps, LanguageEnum.RUSSIAN),
+                                                        template.build(trackRequest, newSteps, LanguageEnum.RUSSIAN),
                                                         trackRequest.getChatId())
                                         );
                             }
