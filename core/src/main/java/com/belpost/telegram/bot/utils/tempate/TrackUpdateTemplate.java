@@ -3,7 +3,6 @@ package com.belpost.telegram.bot.utils.tempate;
 import com.belpost.telegram.bot.common.LanguageEnum;
 import com.belpost.telegram.bot.model.ChatTrackRequest;
 import com.belpost.telegram.bot.model.TrackUpdate;
-import com.belpost.telegram.bot.model.belpost.TrackingInfoDto;
 import org.springframework.stereotype.Component;
 import org.springframework.util.CollectionUtils;
 import org.stringtemplate.v4.ST;

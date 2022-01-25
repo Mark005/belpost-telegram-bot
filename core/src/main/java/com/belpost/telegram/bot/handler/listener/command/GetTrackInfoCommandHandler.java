@@ -16,7 +16,7 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 @Service
 @RequiredArgsConstructor
 public class GetTrackInfoCommandHandler implements CommandHandler {
-    private final TrackNumberValidator validator;
+    private final TrackNumberValidator belpostTrackNumberValidator;
     private final TrackingService trackingService;
     private final Template<PostTrackingResponse> template;
 
@@ -25,13 +25,18 @@ public class GetTrackInfoCommandHandler implements CommandHandler {
         return CommandEnum.GET_TRACK_INFO;
     }
 
+    @Override
+    public void handleFirst(BelpostBot bot, Update update) {
+        bot.sendUpdateResponseMessage("Type post number for request.\nExample: AB123456789CD", update);
+    }
+
     @SneakyThrows
     @Override
-    public void handle(BelpostBot bot, Update update) {
+    public void handleSecond(BelpostBot bot, Update update) {
 
         var trackNumber = UpdateUtils.extractMessageText(update);
 
-        if (!validator.isValid(trackNumber)) {
+        if (!belpostTrackNumberValidator.isValid(trackNumber)) {
             bot.sendUpdateResponseMessage("Track number isn't valid", update);
             return;
         }

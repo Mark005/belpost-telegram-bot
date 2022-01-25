@@ -4,20 +4,14 @@ import com.belpost.telegram.bot.BelpostBot;
 import com.belpost.telegram.bot.common.LanguageEnum;
 import com.belpost.telegram.bot.mapper.TrackingInfoMapper;
 import com.belpost.telegram.bot.model.TrackUpdate;
-import com.belpost.telegram.bot.utils.tempate.Template;
 import com.belpost.telegram.bot.utils.tempate.UpdateNotificationTemplate;
-import io.netty.handler.timeout.ReadTimeoutException;
-import io.netty.handler.timeout.WriteTimeoutException;
 import lombok.RequiredArgsConstructor;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.reactive.function.client.WebClientResponseException;
-import reactor.util.retry.Retry;
 
-import javax.net.ssl.SSLException;
-import java.time.Duration;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.concurrent.TimeUnit;
@@ -31,12 +25,14 @@ public class StatusScheduler {
     private final TrackingInfoMapper trackingInfoMapper;
     private final UpdateNotificationTemplate template;
 
-    @Scheduled(timeUnit = TimeUnit.MINUTES, fixedDelay = 1)
+    @Scheduled(timeUnit = TimeUnit.MINUTES, fixedDelay = 3)
     public void updateStatus() {
-        var pageRequest = PageRequest.of(0, 10);
+        var pageRequest = PageRequest.of(0, 0);
         var page = trackingInfoService.findAllForUpdate(pageRequest);
 
         while (!page.isEmpty()) {
+            pageRequest = pageRequest.next();
+
             pageRequest = pageRequest.next();
 
             page.forEach(trackingInfo -> {

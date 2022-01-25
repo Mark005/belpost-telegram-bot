@@ -1,6 +1,4 @@
-Tracking orders
+Tracking numbers:
 <requests:{ request |
-------------------------------------
-name: <request.name>
-number: <request.trackingInfo.trackNumber>
+<request.trackingInfo.trackNumber> - <request.name>
 }>

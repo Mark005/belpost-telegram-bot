@@ -21,6 +21,23 @@ public class PreCommandHandler implements UpdateListener {
 
     @Override
     public void onUpdate(BelpostBot bot, Update update) {
+        handleFirst(bot, update);
+        handleSecond(bot, update);
+    }
+
+    private void handleFirst(BelpostBot bot, Update update) {
+        var command = UpdateUtils.extractCommand(update);
+        if (command == null) {
+            return;
+        }
+
+        Optional.ofNullable(commandHandlersMap.get(command))
+                .ifPresentOrElse(
+                        commandHandler -> commandHandler.handleFirst(bot, update),
+                        () -> bot.sendUpdateResponseMessage("Handler not implemented", update));
+    }
+
+    private void handleSecond(BelpostBot bot, Update update) {
         Optional<Update> previousUpdate = updateRecorder.getPreviousUpdateFromChatByChatId(
                 UpdateUtils.extractChatId(update));
 
@@ -36,7 +53,7 @@ public class PreCommandHandler implements UpdateListener {
 
         Optional.ofNullable(commandHandlersMap.get(command))
                 .ifPresentOrElse(
-                        commandHandler -> commandHandler.handle(bot, update),
+                        commandHandler -> commandHandler.handleSecond(bot, update),
                         () -> bot.sendUpdateResponseMessage("Handler not implemented", update));
     }
 }

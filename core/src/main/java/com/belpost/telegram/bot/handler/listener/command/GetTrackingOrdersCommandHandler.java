@@ -2,6 +2,7 @@ package com.belpost.telegram.bot.handler.listener.command;
 
 import com.belpost.telegram.bot.BelpostBot;
 import com.belpost.telegram.bot.common.CommandEnum;
+import com.belpost.telegram.bot.common.LanguageEnum;
 import com.belpost.telegram.bot.model.ChatTrackRequest;
 import com.belpost.telegram.bot.repository.ChatTrackRequestRepository;
 import com.belpost.telegram.bot.utils.UpdateUtils;
@@ -12,9 +13,9 @@ import org.telegram.telegrambots.meta.api.objects.Update;
 
 @Service
 @RequiredArgsConstructor
-public class GetTrackingOrderCommandHandler implements CommandHandler {
+public class GetTrackingOrdersCommandHandler implements CommandHandler {
     private final ChatTrackRequestRepository chatTrackRequestRepository;
-    private final Template<ChatTrackRequest> template;
+    private final Template<ChatTrackRequest> chatTrackRequestTemplate;
 
     @Override
     public CommandEnum getHandlingCommand() {
@@ -22,10 +23,17 @@ public class GetTrackingOrderCommandHandler implements CommandHandler {
     }
 
     @Override
-    public void handle(BelpostBot bot, Update update) {
-        var allByChatId = chatTrackRequestRepository.findAllByChatId(UpdateUtils.extractChatId(update));
+    public void handleFirst(BelpostBot bot, Update update) {
+        Long chatId = UpdateUtils.extractChatId(update);
+        LanguageEnum language = UpdateUtils.extractLanguage(update);
+
+        var allByChatId = chatTrackRequestRepository.findAllByChatId(chatId);
         bot.sendUpdateResponseMessage(
-                template.build(allByChatId, UpdateUtils.extractLanguage(update)),
+                chatTrackRequestTemplate.build(allByChatId, language),
                 update);
+    }
+
+    @Override
+    public void handleSecond(BelpostBot bot, Update update) {
     }
 }

@@ -8,5 +8,7 @@ public interface CommandHandler {
 
     CommandEnum getHandlingCommand();
 
-    void handle(BelpostBot bot, Update update);
+    void handleFirst(BelpostBot bot, Update update);
+
+    void handleSecond(BelpostBot bot, Update update);
 }

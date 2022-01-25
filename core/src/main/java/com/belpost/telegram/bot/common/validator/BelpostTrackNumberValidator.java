@@ -11,6 +11,28 @@ public class BelpostTrackNumberValidator implements TrackNumberValidator {
         if (!StringUtils.hasText(trackNumber)) {
             return false;
         }
-        return trackNumber.length() == 13;
+
+        if (trackNumber.length() != 13) {
+            return false;
+        }
+
+        var prefix = trackNumber.substring(0, 2);
+        var number = trackNumber.substring(2, 11);
+        var postfix = trackNumber.substring(11, 13);
+        if (hasNotOnlyLatinLetters(prefix) ||
+                hasNotOnlyLatinLetters(postfix) ||
+                hasNotOnlyNumbers(number)) {
+            return false;
+        }
+
+        return true;
+    }
+
+    private boolean hasNotOnlyLatinLetters(String sting) {
+        return !sting.matches("[a-zA-Z]+");
+    }
+
+    private boolean hasNotOnlyNumbers(String number) {
+        return !number.matches("[0-9]+");
     }
 }
